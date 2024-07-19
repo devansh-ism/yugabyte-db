@@ -1,6 +1,6 @@
-/regression.diffs
-/regression.out
+# Generated subdirectories
+/log/
 /results/
-/wal2json.bc
-/wal2json.so
-*.o
+/output_iso/
+/tmp_check/
+/tmp_check_iso/

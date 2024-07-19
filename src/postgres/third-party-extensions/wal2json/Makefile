@@ -1,4 +1,7 @@
+# contrib/wal2json/Makefile
+
 MODULES = wal2json
+PGFILEDESC = "wal2json - JSON output plugin for changeset extraction"
 
 REGRESS = cmdline insert1 update1 update2 update3 update4 delete1 delete2 \
 		  delete3 delete4 savepoint specialvalue toast bytea message typmod \
@@ -6,9 +9,18 @@ REGRESS = cmdline insert1 update1 update2 update3 update4 delete1 delete2 \
 		  include_domain_data_type truncate type_oid actions position default \
 		  pk rename_column numeric_data_types_as_string
 
+EXTRA_CLEAN = $(pg_regress_clean_files)
+
+ifdef USE_PGXS
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
+else
+subdir = contrib/wal2json
+top_builddir = ../..
+include $(top_builddir)/src/Makefile.global
+include $(top_srcdir)/contrib/contrib-global.mk
+endif
 
 # message API is available in 9.6+
 ifneq (,$(findstring $(MAJORVERSION),9.4 9.5))
